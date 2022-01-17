@@ -1,4 +1,5 @@
-const  Navbar= ()=>{
+
+const Navbar = () =>{
     
 return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,15 +24,4 @@ return(
 )
 }
 
-/*
-return <>
-    <h1>Estacion Bebe</h1>
-        <p>Todos los productos</p>
-        <p>Huggies</p>
-        <p>Pampers</p>
-        <p>Estrella</p>
-        <p>Babysec</p>
-        <p>Accessorios</p>
-</>
-*/
 export default Navbar;
