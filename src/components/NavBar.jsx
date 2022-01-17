@@ -1,11 +1,6 @@
-<<<<<<< HEAD:src/components/NavBar.jsx
-
-const Navbar = () =>{
-=======
 import CartWidget from './CartWidget.jsx';
 
 const  Navbar= ()=>{
->>>>>>> old-state:src/components/NavBar.js
     
 return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ padding: "20px"  }}>
