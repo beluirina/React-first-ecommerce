@@ -1,3 +1,5 @@
+import ItemCount from "./ItemCount";
+
 function ItemListContainer( {greetings} ){
     return( //card display items
 
@@ -8,9 +10,8 @@ function ItemListContainer( {greetings} ){
       <p className="card-text">Descripcion.{greetings}</p>
       <a href="#" className="btn btn-primary">Agregar a carrito</a>
     </div>
-     
+     <ItemCount  stock="5" count="1"/>
   </div>
-   
     )
      
   }
