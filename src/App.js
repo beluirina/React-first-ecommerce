@@ -8,8 +8,7 @@ function App() {
     <div className="App">
       <div>
         <Navbar/>
-      </div>
-         
+      </div>         
         <ItemListContainer/>
     </div>
   );
