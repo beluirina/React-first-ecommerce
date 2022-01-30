@@ -1,4 +1,4 @@
-export default itemList = [
+const itemList = [
     //desarollar vista usando un array de items y un map
     { id: '1', title: 'rojo', category: 'body', price: 1000, img: '//', stock: '5' },
     { id: '2', title: 'estrellado ', category: 'body', price: 2000, img: '//', stock: '5' },
@@ -9,3 +9,5 @@ export default itemList = [
     { id: '7', title: 'rojo', category: 'bralette', price: 1000, img: '//', stock: '5' },
     { id: '8', title: 'rojo', category: 'cullot', price: 1000, img: '//', stock: '5' }
 ];
+
+export default itemList;
