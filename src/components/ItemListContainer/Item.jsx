@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+import ItemCount from "./ItemCount";
 
 //proviene de una Promise - que los resuelva en tiempo diferito SETTIMEOUT de 2 segundos para emular retrasos de red
 
@@ -12,7 +14,12 @@ function Item( { prod, loading } ) {
                         <h5 className="card-title">{ prod.title }</h5>
                         <p className="card-text">{ prod.category }</p>
                         <h6>{ prod.price }</h6>
-                        <a href="#" className="btn btn-primary">Agregar a carrito</a>
+                        
+                <ItemCount  stock={prod.stock} count="1"/>
+
+                        <Link to={`/details/${prod.id}`} className="btn btn-primary">
+                            Detalles
+                        </Link>
                     </div>
                 </div>
                 

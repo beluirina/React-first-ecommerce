@@ -1,17 +1,33 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/NavBar/NavBar.jsx';
-import ItemListContainer from './components/ItemListConteiner/ItemListContainer.jsx';
+import ItemListContainer from './components/ItemListContainer/ItemListContainer.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Item from './components/ItemListConteiner/Item';
+import CartWidget from './components/CartWidget/CartWidget';
 
 function App() {
+  fetch('assets/Data.json')
+    // .then(res => res.json)
+    .then(resp => console.log(resp.productos))
+  //catch finally
+
   return (
+    <BrowserRouter>
     <div className="App">
-      <div>
         <Navbar/>
-      </div>         
-        <ItemListContainer/>
+        <Routes>
+          <Route exact path='/' element={<ItemListContainer/>}/>
+
+          <Route exact path='/cart' element={<CartWidget/>}/>
+
+          <Route exact path='/details/:idProduct' element={<ItemListContainer/>}/>
+          
+          <Route exact path='/category/:idCategory' element={<ItemListContainer/>}/>
+
+        </Routes>
     </div>
+    </BrowserRouter>
+    
   );
 }
 

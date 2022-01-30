@@ -1,6 +1,6 @@
 import { useState } from 'react' // useState
 
-function ItemCount ( {stock} ) {
+function ItemCount ( { stock } ) {
     //para que no se reinicie el valor inicial ya que re ejecuta toda la function ItemCount
      const [count, setCount] = useState(0)
  

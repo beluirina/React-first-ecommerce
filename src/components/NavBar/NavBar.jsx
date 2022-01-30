@@ -1,27 +1,40 @@
-import CartWidget from '../CartWidget/CartWidget.jsx';
+import { Link } from 'react-router-dom';
+
 
 const  Navbar= ()=>{
     
 return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ padding: "20px"  }}>
-  <a className="navbar-brand" href="#">Estacion Bebe</a>
+    <Link to='/' className="navbar-brand" href="#">
+      Estacion Bebe
+    </Link>
+  
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
-      <li className="nav-item active">
-        <a className="nav-link" href="#">Inicio</a>
+      <li className="nav-item">
+        {/*hacer div drop down con categorias*/}
+        {/* <Link to='/productos' className="nav-link" href="#">
+          Productos
+        </Link> */}
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">Productos</a>
+        <Link to='category/bodys' className="nav-link" >
+          Bodys
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="#">Accessorios</a>
+        <Link to='category/lenceria' className="nav-link" >
+          Lenceria
+        </Link>
       </li>
     </ul>
   </div>
-  <CartWidget/>
+  <Link to='/cart'>
+    <img src="/shopping-cart.png" alt="carrito de compras" />
+  </Link>
 </nav>
 )
 }
