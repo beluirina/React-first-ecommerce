@@ -21,7 +21,7 @@ function App() {
 
           <Route exact path='/cart' element={<CartWidget/>}/>
 
-          <Route exact path='/details/:idProduct' element={<ItemDetailContainer/>}/>
+          <Route exact path='/details/:productId' element={<ItemDetailContainer/>}/>
           
           <Route exact path='/category/:idCategory' element={<ItemListContainer/>}/>
 

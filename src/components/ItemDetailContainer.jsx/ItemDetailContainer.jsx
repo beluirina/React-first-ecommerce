@@ -4,14 +4,14 @@ import ItemDetail from "./ItemDetail";
 import { useParams } from "react-router-dom";
 
 function ItemDetailContainer(){
-    const [productos, setProductos] = useState([])
+  const [productos, setProductos] = useState([])
   const [loading, setloading] = useState(true)
-    
+
   const {productId} = useParams();
 
    //mock incovando get items
    useEffect(() => {
-       getItems
+    getItems
        .then((res) => setProductos(productId ? res.find(prod => prod.id === productId ) : res ))
 
        .catch((err) => console.log(err))
@@ -19,6 +19,7 @@ function ItemDetailContainer(){
       .finally(()=> setloading(false))
     }, [productId]);
    //resolver then return jsx decuelva un item detail
+
    return(
        <>
         <ItemDetail prod={productos} key={productos.id} loading={loading}/>

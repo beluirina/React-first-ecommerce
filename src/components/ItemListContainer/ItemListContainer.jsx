@@ -15,7 +15,7 @@ function ItemListContainer( ){
       .catch((err) => console.error(`error: ${err}`))
       .finally(()=> setloading(false))
 
-  }, [idCategory])//dependencia/filtro del array vacio para que se ejecute solo una vez
+  }, [idCategory])
   
   return( //card display items
     <div>
