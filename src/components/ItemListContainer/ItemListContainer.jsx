@@ -8,7 +8,6 @@ function ItemListContainer( ){
   const [loading, setloading] = useState(true)
 
   const {idCategory} = useParams()
-
   
   useEffect(() => {
       getItems

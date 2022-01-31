@@ -2,26 +2,25 @@
  import ItemCount from "../ItemListContainer/ItemCount"
  
   //itemdetail.js incluyendo descripcion foto y precio
- export default function ItemDetail ({ loading, prod }){
-      const {title, category, id, stock, price, img } = prod.product
+function ItemDetail ({ loading, prod }){
     //vista de detalle expandida del producto con titulo imagen descrip precio
     return <>
     { ( loading )  ? ( <h2>Loading... </h2> ) : ( 
-            <div className="card" key={ id } style={{ width: "80%"  }}>
-                <img className="card-img-top" src={ img } alt="Card image cap" style={{ width: "500px"  }}/> 
+            <div className="card" key={ prod.id } style={{ width: "80%"  }}>
+                <img className="card-img-top" src={ prod.img } alt="Card image cap" style={{ width: "500px"  }}/> 
 
                 <div className='details'>
 
                     <div className='top'>
-                        <h5 className="card-title">{ title }</h5>
-                        <p className="card-text">{ category }</p>
+                        <h5 className="card-title">{ prod.title }</h5>
+                        <p className="card-text">{ prod.category }</p>
 
-                        <h6>{ price }</h6>
+                        <h6>{ prod.price }</h6>
                     </div>
 
 
                     <div className='bottom'>
-                    <ItemCount  stock={stock} count="1"/>
+                    <ItemCount  stock={prod.stock} count="1"/>
 
                         <Link to={`/cart`} className="btn btn-primary">
                             Agregar a carrito
@@ -30,7 +29,9 @@
 
                 </div>
             </div>
-            )};
+            )}
     
     </>
   }
+
+  export default ItemDetail

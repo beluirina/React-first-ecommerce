@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react"
 import getItems from "../../helpers/getItems"  
-import ItemDetail from "./ItemDetails";
+import ItemDetail from "./ItemDetail";
+import { useParams } from "react-router-dom";
 
-export default function ItemDetailContainer(){
-    const [prod, setProductos] = useState([])
-    const productId = 1; //como convertir en variable dependiendo del click de boton
+function ItemDetailContainer(){
+    const [productos, setProductos] = useState([])
+  const [loading, setloading] = useState(true)
+    
+  const {productId} = useParams();
 
    //mock incovando get items
    useEffect(() => {
-       getItems().then((data) => {
-           setProductos(data.find((item) => item.id === productId))
-       })
+       getItems
+       .then((res) => setProductos(productId ? res.find(prod => prod.id === productId ) : res ))
+
        .catch((err) => console.log(err))
-   }, []);
+       
+      .finally(()=> setloading(false))
+    }, [productId]);
    //resolver then return jsx decuelva un item detail
    return(
        <>
-        <ItemDetail prod={prod} key={prod.id} loading='loading'/>
-        
+        <ItemDetail prod={productos} key={productos.id} loading={loading}/>
        </>
    )
 
 }
+
+
+export default ItemDetailContainer

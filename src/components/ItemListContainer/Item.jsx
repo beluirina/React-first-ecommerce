@@ -22,7 +22,7 @@ function Item( { prod, loading } ) {
                     </div>
                 </div>
                 
-            )};
+            )}
         </div>
     )
 }

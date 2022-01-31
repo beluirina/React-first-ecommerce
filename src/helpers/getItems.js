@@ -4,7 +4,7 @@ import itemList from "./itemList";
     let condition = true;
     if (condition) {
         setTimeout(() => {
-            res(itemList(itemList))
+            res(itemList)
         }, 2000);
     } else {
         rej( /* Manejo de Error */ );

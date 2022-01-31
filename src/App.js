@@ -4,6 +4,7 @@ import Navbar from './components/NavBar/NavBar.jsx';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartWidget from './components/CartWidget/CartWidget';
+import ItemDetailContainer from './components/ItemDetailContainer.jsx/ItemDetailContainer';
 
 function App() {
   fetch('assets/Data.json')
@@ -20,7 +21,7 @@ function App() {
 
           <Route exact path='/cart' element={<CartWidget/>}/>
 
-          <Route exact path='/details/:idProduct' element={<ItemListContainer/>}/>
+          <Route exact path='/details/:idProduct' element={<ItemDetailContainer/>}/>
           
           <Route exact path='/category/:idCategory' element={<ItemListContainer/>}/>
 

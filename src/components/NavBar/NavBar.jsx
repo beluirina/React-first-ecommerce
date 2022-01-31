@@ -21,12 +21,12 @@ return(
         </Link> */}
       </li>
       <li className="nav-item">
-        <Link to='category/bodys' className="nav-link" >
+        <Link to='/category/bodys' className="nav-link" >
           Bodys
         </Link>
       </li>
       <li className="nav-item">
-        <Link to='category/lenceria' className="nav-link" >
+        <Link to='/category/lenceria' className="nav-link" >
           Lenceria
         </Link>
       </li>
