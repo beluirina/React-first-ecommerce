@@ -19,7 +19,7 @@ function ItemCount ( { stock } ) {
      }
  
      return(
-         <div>
+         <div className='counter'>
              <button onClick={ onAdd }> + </button>
              <div>
                  { count }

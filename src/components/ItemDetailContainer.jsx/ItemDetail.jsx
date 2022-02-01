@@ -6,16 +6,17 @@ function ItemDetail ({ loading, prod }){
     //vista de detalle expandida del producto con titulo imagen descrip precio
     return <>
     { ( loading )  ? ( <h2>Loading... </h2> ) : ( 
-            <div className="card" key={ prod.id } style={{ width: "80%"  }}>
+
+            <div className="card-details" key={ prod.id } style={{ width: "80%"  }}>
+
                 <img className="card-img-top" src={ prod.img } alt="Card image cap" style={{ width: "500px"  }}/> 
 
-                <div className='details'>
+                <div className='details-text'>
 
                     <div className='top'>
-                        <h5 className="card-title">{ prod.title }</h5>
-                        <p className="card-text">{ prod.category }</p>
+                        <h5 className="card-title-detail">{ prod.category } { prod.title }</h5>
 
-                        <h6>{ prod.price }</h6>
+                        <h6 className="price">${ prod.price }</h6>
                     </div>
 
 

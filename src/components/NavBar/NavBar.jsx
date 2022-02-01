@@ -5,8 +5,8 @@ const  Navbar= ()=>{
     
 return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ padding: "20px"  }}>
-    <Link to='/' className="navbar-brand" href="#">
-      Estacion Bebe
+    <Link to='/' className="navbar-brand">
+      Candelaria Lenceria
     </Link>
   
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,12 +21,12 @@ return(
         </Link> */}
       </li>
       <li className="nav-item">
-        <Link to='/category/bodys' className="nav-link" >
+        <Link to='/category/Bodys' className="nav-link" >
           Bodys
         </Link>
       </li>
       <li className="nav-item">
-        <Link to='/category/lenceria' className="nav-link" >
+        <Link to='/category/Lenceria' className="nav-link" >
           Lenceria
         </Link>
       </li>

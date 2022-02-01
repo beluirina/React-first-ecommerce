@@ -18,8 +18,11 @@ function ItemListContainer( ){
   }, [idCategory])
   
   return( //card display items
-    <div>
+    <div className='display'>
+      <h2>Productos</h2>
+      <div className='cardContainer'>
       {productos.map((prod)=> <Item prod={prod} key={prod.id} loading={loading}/>)}
+      </div>
     </div>
   )
    

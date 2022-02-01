@@ -12,7 +12,6 @@ function Item( { prod, loading } ) {
                     <div className="card-body">
                         <h5 className="card-title">{ prod.title }</h5>
                         <p className="card-text">{ prod.category }</p>
-                        <h6>{ prod.price }</h6>
                         
                 <ItemCount  stock={prod.stock} count="1"/>
 
