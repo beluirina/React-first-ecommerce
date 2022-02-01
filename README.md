@@ -10,4 +10,4 @@
 - Manejo con bottones para simular un agregado al carrito con el limite por stock de producto. 
 
 ### Routes test
-![gif-routes-test]()
+![gif-routes-test](https://github.com/beluirina/learning-react-proyecto/blob/main/routes-test.gif)
