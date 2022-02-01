@@ -12,7 +12,7 @@ function ItemDetailContainer(){
    //mock incovando get items
    useEffect(() => {
     getItems
-       .then((res) => setProductos(productId ? res.find(prod => prod.id === productId ) : res ))
+      .then((res) => setProductos(res.find(prod => prod.id === productId )))
 
        .catch((err) => console.log(err))
        

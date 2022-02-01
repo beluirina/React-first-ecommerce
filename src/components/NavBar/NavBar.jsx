@@ -33,7 +33,7 @@ return(
     </ul>
   </div>
   <Link to='/cart'>
-    <img src="/shopping-cart.png" alt="carrito de compras" />
+    <img src="/shopping-cart.png"  />
   </Link>
 </nav>
 )

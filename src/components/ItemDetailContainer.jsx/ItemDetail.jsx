@@ -9,7 +9,7 @@ function ItemDetail ({ loading, prod }){
 
             <div className="card-details" key={ prod.id } style={{ width: "80%"  }}>
 
-                <img className="card-img-top" src={ prod.img } alt="Card image cap" style={{ width: "500px"  }}/> 
+                <img className="card-img-top" src={ prod.img }  style={{ width: "500px"  }}/> 
 
                 <div className='details-text'>
 
