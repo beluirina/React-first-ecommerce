@@ -1,11 +1,11 @@
 import { useState } from 'react' // useState
 
-function ItemCount ( { stock } ) {
+function ItemCount ( { stock, onAdd, initial } ) {
     //para que no se reinicie el valor inicial ya que re ejecuta toda la function ItemCount
-     const [count, setCount] = useState(0)
+     const [count, setCount] = useState(initial)
  
 
-     function onAdd(){//ejecutar onAdd - solo si...
+     function sumar(){//ejecutar onAdd - solo si...
           //si hay stock
          if (count < stock){
              setCount(count + 1)
@@ -17,15 +17,24 @@ function ItemCount ( { stock } ) {
          }
          
      }
+     const agregar=()=>{
+        onAdd(count)
+      }
+    
  
      return(
+         <>
          <div className='counter'>
-             <button onClick={ onAdd }> + </button>
+             <button onClick={ sumar }> + </button>
              <div>
                  { count }
              </div>
              <button onClick={ restar }> - </button>
          </div>
+         <div>
+             <button onClick={agregar} > Agregar a carrito</button>
+         </div>
+         </>
      )
  }
 

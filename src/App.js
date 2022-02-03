@@ -5,6 +5,7 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartWidget from './components/CartWidget/CartWidget';
 import ItemDetailContainer from './components/ItemDetailContainer.jsx/ItemDetailContainer';
+import CartContextProvider from './context/CartContext';
 
 function App() {
   fetch('assets/Data.json')
@@ -14,19 +15,23 @@ function App() {
 
   return (
     <BrowserRouter>
-    <div className="App">
-        <Navbar/>
-        <Routes>
-          <Route exact path='/' element={<ItemListContainer/>}/>
 
-          <Route exact path='/cart' element={<CartWidget/>}/>
+      <CartContextProvider>
+        <div className="App">
+            <Navbar/>
+            <Routes>
+              <Route exact path='/' element={<ItemListContainer/>}/>
 
-          <Route exact path='/details/:productId' element={<ItemDetailContainer/>}/>
-          
-          <Route exact path='/category/:idCategory' element={<ItemListContainer/>}/>
+              <Route exact path='/cart' element={<CartWidget/>}/>
 
-        </Routes>
-    </div>
+              <Route exact path='/details/:productId' element={<ItemDetailContainer/>}/>
+              
+              <Route exact path='/category/:idCategory' element={<ItemListContainer/>}/>
+
+            </Routes>
+        </div>
+      </CartContextProvider>
+
     </BrowserRouter>
     
   );

@@ -1,9 +1,22 @@
- import { Link } from "react-router-dom"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useCartContext } from "../../context/CartContext"
  import ItemCount from "../ItemListContainer/ItemCount"
  
   //itemdetail.js incluyendo descripcion foto y precio
 function ItemDetail ({ loading, prod }){
     //vista de detalle expandida del producto con titulo imagen descrip precio
+    const [contador, setContador] = useState(0)
+    const { cartList, agregarAlCarrito} = useCartContext()
+    
+    console.log(cartList)
+
+
+    function onAdd(cant){
+        //agregarAlCarrito( {...prod, cantidad: cant} )
+        setContador(cant)
+    }
+
     return <>
     { ( loading )  ? ( <h2>Loading... </h2> ) : ( 
 
@@ -21,11 +34,18 @@ function ItemDetail ({ loading, prod }){
 
 
                     <div className='bottom'>
-                    <ItemCount  stock={prod.stock} count="1"/>
-
-                        <Link to={`/cart`} className="btn btn-primary">
-                            Agregar a carrito
+                    {contador === 0 ? 
+                    <ItemCount  onAdd={onAdd} stock={prod.stock} initial="1"/>
+                        : 
+                        <>
+                        <Link to='/cart'>
+                        <button>Terminar compra</button>
                         </Link>
+                        <Link to='/'>
+                        <button>Continuar comprando</button>
+                        </Link>
+                        </>
+                }
                     </div>
 
                 </div>
