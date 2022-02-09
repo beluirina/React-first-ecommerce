@@ -1,22 +1,25 @@
-import { useState } from "react"
+// import { useState } from "react"
 import { Link } from "react-router-dom"
-import { useCartContext } from "../../context/CartContext"
  import ItemCount from "../ItemListContainer/ItemCount"
  
   //itemdetail.js incluyendo descripcion foto y precio
 function ItemDetail ({ loading, prod }){
     //vista de detalle expandida del producto con titulo imagen descrip precio
-    const [contador, setContador] = useState(0)
+    
+    // const [contador, setContador] = useState(0)
+    const contador = 0
+
+
     // const { cartList, agregarAlCarrito} = useCartContext()
     // console.log(cartList)
 
     // const agregarAlCarrito = useCartContext();
 
 
-    function onAdd(cant){
-        //agregarAlCarrito( {...prod, cantidad: cant} )
-        setContador(cant)
-    }
+    // function onAdd(cant){
+    //     //agregarAlCarrito( {...prod, cantidad: cant} )
+    //     setContador(cant)
+    // }
 
     return <>
     { ( loading )  ? ( <h2>Loading... </h2> ) : ( 
@@ -36,7 +39,7 @@ function ItemDetail ({ loading, prod }){
 
                     <div className='bottom'>
                     {contador === 0 ? 
-                    <ItemCount   onAdd={onAdd} stock={prod.stock} initial={1}/>
+                    <ItemCount  name={prod} stock={prod.stock} initial={1}/>
                         : 
                         <>
                         <Link to='/cart'>

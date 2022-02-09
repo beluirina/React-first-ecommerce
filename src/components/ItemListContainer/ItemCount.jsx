@@ -1,6 +1,7 @@
 import { useState } from 'react' // useState
+import {useCartContext} from "../../context/CartContext"
 
-function ItemCount ( { stock, onAdd, initial } ) {
+function ItemCount ( { stock, onAdd, initial, name } ) {
     //para que no se reinicie el valor inicial ya que re ejecuta toda la function ItemCount
      const [count, setCount] = useState(initial)
      const { agregarAlCarrito } = useCartContext()
@@ -18,9 +19,9 @@ function ItemCount ( { stock, onAdd, initial } ) {
          }
          
      }
-     const agregar=()=>{
-        onAdd(count)
-      }
+    //  const agregar=()=>{
+    //     onAdd(count)
+    //   }
     
  
      return(
@@ -33,7 +34,7 @@ function ItemCount ( { stock, onAdd, initial } ) {
              <button onClick={ restar }> - </button>
          </div>
          <div>
-             <button onClick={agregarAlCarrito()}  > Agregar a carrito</button>
+             <button onClick={agregarAlCarrito(name.title)}  > Agregar a carrito</button>
          </div>
          </>
      )
