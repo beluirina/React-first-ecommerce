@@ -4,7 +4,7 @@ import { useCartContext } from "../../context/CartContext"
 
 const CartWidget = () =>{
 
-    const { cartList, emptyCart} = useCartContext()
+    const { CartList, deleteOne, emptyCart } = useCartContext()
     return(
 
         //si tu carrito esta vacio - boton continuar comprando
@@ -14,10 +14,17 @@ const CartWidget = () =>{
             <h1>Cart</h1>
             <p>No hay items en tu carrito...</p>
             <Link to='/'>
-            <button>Continuar comprando</button>
+                <button>Continuar comprando</button>
             </Link>
-            {cartList.map(prod => <li>{prod.name}</li>)}
-            <button onClick={emptyCart}></button>
+            {CartList.map((el) =>(
+            <>
+                <h2>{el.title}</h2>
+                <p>{el.count}</p>
+            <button onClick={() => deleteOne(el.title)}>Eliminar</button>
+
+            </>
+        ))}
+            <button onClick={emptyCart}>Vaciar carrito</button>
         </div>
     )
    }

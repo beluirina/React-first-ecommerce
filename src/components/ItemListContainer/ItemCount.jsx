@@ -3,6 +3,7 @@ import { useState } from 'react' // useState
 function ItemCount ( { stock, onAdd, initial } ) {
     //para que no se reinicie el valor inicial ya que re ejecuta toda la function ItemCount
      const [count, setCount] = useState(initial)
+     const { agregarAlCarrito } = useCartContext()
  
 
      function sumar(){//ejecutar onAdd - solo si...
@@ -32,7 +33,7 @@ function ItemCount ( { stock, onAdd, initial } ) {
              <button onClick={ restar }> - </button>
          </div>
          <div>
-             <button onClick={agregar} > Agregar a carrito</button>
+             <button onClick={agregarAlCarrito()}  > Agregar a carrito</button>
          </div>
          </>
      )
