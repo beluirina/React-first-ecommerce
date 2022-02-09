@@ -5,7 +5,7 @@ import ItemListContainer from './components/ItemListContainer/ItemListContainer.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CartWidget from './components/CartWidget/CartWidget';
 import ItemDetailContainer from './components/ItemDetailContainer.jsx/ItemDetailContainer';
-import CartContextProvider from './context/CartContext';
+import {CartContextProvider} from '../src/context/CartContext';
 
 function App() {
   fetch('assets/Data.json')

@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom"
-import ItemCount from "./ItemCount";
-
 //proviene de una Promise - que los resuelva en tiempo diferito SETTIMEOUT de 2 segundos para emular retrasos de red
 
 function Item( { prod, loading } ) {

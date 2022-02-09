@@ -7,9 +7,10 @@ import { useCartContext } from "../../context/CartContext"
 function ItemDetail ({ loading, prod }){
     //vista de detalle expandida del producto con titulo imagen descrip precio
     const [contador, setContador] = useState(0)
-    const { cartList, agregarAlCarrito} = useCartContext()
-    
-    console.log(cartList)
+    // const { cartList, agregarAlCarrito} = useCartContext()
+    // console.log(cartList)
+
+    // const agregarAlCarrito = useCartContext();
 
 
     function onAdd(cant){
@@ -35,7 +36,7 @@ function ItemDetail ({ loading, prod }){
 
                     <div className='bottom'>
                     {contador === 0 ? 
-                    <ItemCount  onAdd={onAdd} stock={prod.stock} initial="1"/>
+                    <ItemCount   onAdd={onAdd} stock={prod.stock} initial={1}/>
                         : 
                         <>
                         <Link to='/cart'>
