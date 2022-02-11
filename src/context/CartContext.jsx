@@ -5,13 +5,22 @@ export function useCartContext(){ return useContext(CartContext)}
 
 export function CartContextProvider({ children }){
     const [cartList, setCartList] = useState([]);
+    console.log(cartList);
 
+    const  avoidDuplicates = (parametro) => {
+        const findCharacter = cartList.some((i)=>{
+            return i.id === parametro.id
+        })
+        console.log(findCharacter)
+        return findCharacter
+    }
+//viene del onAdd
     function agregarAlCarrito(item){
         if(avoidDuplicates(item)){
             const changeAmount = [...cartList]
                 changeAmount.forEach(x =>{
-                if(x.title === item){
-                    x.quantity += 1
+                if(x.id === item.id){
+                    x.cantidad += item.cantidad
                 }
             })
             return setCartList(changeAmount)
@@ -21,13 +30,6 @@ export function CartContextProvider({ children }){
 
     function emptyCart(){
         setCartList([])
-    }
-
-    const  avoidDuplicates = (parametro) => {
-        const findCharacter = cartList.find((i)=>{
-            return i === parametro
-        })
-        return findCharacter
     }
 
     const deleteOne = (SelectedItem) => {
