@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useCartContext } from '../../context/CartContext';
 
 
 const  Navbar= ()=>{
-    
+    const { cantidad } = useCartContext()
 return(
     <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ padding: "20px"  }}>
     <Link to='/' className="navbar-brand">
@@ -21,20 +22,21 @@ return(
         </Link> */}
       </li>
       <li className="nav-item">
-        <Link to='/category/Bodys' className="nav-link" >
+        <NavLink to='/category/Bodys' className="nav-link" >
           Bodys
-        </Link>
+        </NavLink>
       </li>
       <li className="nav-item">
-        <Link to='/category/Lenceria' className="nav-link" >
+        <NavLink to='/category/Lenceria' className="nav-link" >
           Lenceria
-        </Link>
+        </NavLink>
       </li>
     </ul>
   </div>
-  <Link to='/cart'>
+  <NavLink to='/cart'>
+    { cantidad() !== 0 && cantidad()}
     <img src="/shopping-cart.png"  />
-  </Link>
+  </NavLink>
 </nav>
 )
 }

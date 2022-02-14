@@ -4,8 +4,13 @@ import { useCartContext } from "../../context/CartContext"
 
 const CartWidget = () =>{
 
-    const { cartList, deleteOne, emptyCart } = useCartContext()
-
+    const { cartList, deleteOne, emptyCart, addTotal } = useCartContext()
+    function addPricePerItem(){
+        const addTotalItems = [...cartList]
+        addTotalItems.forEach(x =>{
+              return x.price * x.cantidad 
+           })
+    }
        console.log( cartList.length )
 
     return(
@@ -34,9 +39,9 @@ const CartWidget = () =>{
             cartList.map((el) =>(
                 <div key={el.id} >
                     <h2 >{el.title} x {el.cantidad}</h2>
-                    <p>{el.count}</p>
-
-                    <button onClick={() => deleteOne(el.title)}>Eliminar</button>
+                    <p>${addPricePerItem}</p>
+                    {`TOTAL: $${addTotal()}`}
+                    <button onClick={() => deleteOne(el.id)}> X </button>
                 </div>
             ))
         }
