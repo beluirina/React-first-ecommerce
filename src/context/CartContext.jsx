@@ -29,7 +29,7 @@ export function CartContextProvider({ children }){
     //    return setCartList([...cartList, item])
     // }     console.log(item)
         // -1 no existe en el cart lis, 0 en adelante si is in cart
-        const index = cartList.findIndex(prod => prod.productos.id === item.productos.id )
+        const index = cartList.findIndex(prod => prod.id === item.id )
 
         if (index === -1) {
             // no existe, lo agrego
@@ -44,7 +44,7 @@ export function CartContextProvider({ children }){
     }
 
 function addTotal(){
-        return cartList.reduce((acum, prod) => acum = acum + (prod.productos.price * prod.cantidad), 0)
+        return cartList.reduce((acum, prod) => acum = acum + (prod.price * prod.cantidad), 0)
 }
       
 const cantidad = () => {
@@ -56,11 +56,12 @@ const cantidad = () => {
         setCartList([])
     }
 
-    const deleteOne = (SelectedItem) => {
-    // setCartList( cartList.filter( prod => prod.item.id !== SelectedItem ) )
-        const deleteThisItem = [...cartList]
-        const itemWasDeleted = deleteThisItem.filter(x => x.title !== SelectedItem.title)
-        return setCartList(itemWasDeleted)
+    const deleteOne = (selectedItem) => {
+    setCartList( cartList.filter( prod => prod.id !== selectedItem ) )
+
+        // const deleteThisItem = [...cartList]
+        // const itemWasDeleted = deleteThisItem.filter(x => x.id !== SelectedItem.id)
+        // return setCartList(itemWasDeleted)
 
     }
 

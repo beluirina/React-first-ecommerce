@@ -35,12 +35,12 @@ const CartWidget = () =>{
             
         }    
             
-        {                    
+        {        
             cartList.map((el) =>(
                 <div key={el.id} >
                     <h2 >{el.title} x {el.cantidad}</h2>
+                    <h4>${el.price}c/u</h4>
                     {/* <p>${addPricePerItem()}</p> */}
-                    {`TOTAL: $${addTotal()}`}
                     <button onClick={() => deleteOne(el.id)}> X </button>
                 </div>
             ))
@@ -56,7 +56,7 @@ const CartWidget = () =>{
             // ESCRIBIR RESTO DE VISTA QUE QUIERAS AGREGAR
         }     
         
-        
+        {`TOTAL: $${addTotal()}`}
         </div>
     )
 }
