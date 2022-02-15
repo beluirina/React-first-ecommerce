@@ -16,6 +16,7 @@ export function CartContextProvider({ children }){
     // }
 //viene del onAdd
     function agregarAlCarrito(item){
+        
     //     if(avoidDuplicates(item)){
     //         const changeAmount = [...cartList]
     //             changeAmount.forEach(x =>{
@@ -28,7 +29,7 @@ export function CartContextProvider({ children }){
     //    return setCartList([...cartList, item])
     // }     console.log(item)
         // -1 no existe en el cart lis, 0 en adelante si is in cart
-        const index = cartList.findIndex(prod => prod.products.id === item.products.id )
+        const index = cartList.findIndex(prod => prod.productos.id === item.productos.id )
 
         if (index === -1) {
             // no existe, lo agrego
@@ -40,11 +41,10 @@ export function CartContextProvider({ children }){
             const newCartList = [ ...cartList ]
             setCartList(newCartList)
         }
+    }
 
-
-
-    function addTotal(){
-        return cartList.reduce((acum, prod) => acum = acum + (prod.products.price * prod.cantidad), 0)
+function addTotal(){
+        return cartList.reduce((acum, prod) => acum = acum + (prod.productos.price * prod.cantidad), 0)
 }
       
 const cantidad = () => {
@@ -74,4 +74,4 @@ const cantidad = () => {
     }}>
         { children }
     </CartContext.Provider>
-}}
+}

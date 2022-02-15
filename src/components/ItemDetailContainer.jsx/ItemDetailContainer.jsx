@@ -12,8 +12,8 @@ function ItemDetailContainer(){
    //mock incovando get items
    useEffect(() => {
      const db = getFirestore()
-
-    const itemRef = doc(db, 'products', productId)
+    //  collection(db, 'productos')
+    const itemRef = doc(db, 'productos', productId)
 
     getDoc(itemRef)
       .then((res) => setProductos({ id: res.id, ...res.data()} ))
