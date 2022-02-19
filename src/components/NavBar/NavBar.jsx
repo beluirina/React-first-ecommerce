@@ -21,13 +21,13 @@ return(
           Productos
         </Link> */}
       </li>
-      <li className="nav-item">
-        <NavLink to='/category/Bodys' className="nav-link" >
+      <li>
+        <NavLink to='/category/Bodys' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link disabled'} >
           Bodys
-        </NavLink>
+        </NavLink> 
       </li>
-      <li className="nav-item">
-        <NavLink to='/category/Lenceria' className="nav-link" >
+      <li>
+        <NavLink to='/category/Lenceria' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link disabled'} >
           Lenceria
         </NavLink>
       </li>

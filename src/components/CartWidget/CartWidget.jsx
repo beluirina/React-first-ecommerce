@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { useCartContext } from "../../context/CartContext"
 
+//{ buyer: {name, phone, email} items: [{id, title, price}], total}
 
 const CartWidget = () =>{
 
@@ -38,7 +39,8 @@ const CartWidget = () =>{
         {        
             cartList.map((el) =>(
                 <div key={el.id} >
-                    <h2 >{el.title} x {el.cantidad}</h2>
+                    <h2 >{el.title} x ({el.cantidad})</h2>
+                    <p>{el.id}</p>
                     <h4>${el.price}c/u</h4>
                     {/* <p>${addPricePerItem()}</p> */}
                     <button onClick={() => deleteOne(el.id)}> X </button>
@@ -51,12 +53,13 @@ const CartWidget = () =>{
             (cartList.length >= 1)
             
             &&
-            
+            <>
+            {`TOTAL: $${addTotal()}`}
             <button onClick={emptyCart}>Vaciar carrito</button>
-            // ESCRIBIR RESTO DE VISTA QUE QUIERAS AGREGAR
+            </>
         }     
         
-        {`TOTAL: $${addTotal()}`}
+        
         </div>
     )
 }
