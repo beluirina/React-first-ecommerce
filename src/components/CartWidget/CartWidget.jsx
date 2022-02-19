@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom"
 import { useCartContext } from "../../context/CartContext"
-
 //{ buyer: {name, phone, email} items: [{id, title, price}], total}
 
 const CartWidget = () =>{
 
-    const { cartList, deleteOne, emptyCart, addTotal } = useCartContext()
+    const { handleChange, cartList, deleteOne, emptyCart, addTotal } = useCartContext()
     // function addPricePerItem(){
     //     const addTotalItems = [...cartList]
     //     addTotalItems.forEach(x =>{
@@ -36,7 +35,10 @@ const CartWidget = () =>{
             
         }    
             
-        {        
+        
+        {  id !== '' && `El id de la orden es : ${id} `}
+        {
+         
             cartList.map((el) =>(
                 <div key={el.id} >
                     <h2 >{el.title} x ({el.cantidad})</h2>
@@ -48,6 +50,9 @@ const CartWidget = () =>{
             ))
         }
             
+
+        
+            
             
         {
             (cartList.length >= 1)
@@ -55,14 +60,50 @@ const CartWidget = () =>{
             &&
             <>
             {`TOTAL: $${addTotal()}`}
+
+
+            <form 
+                onSubmit={createPurchaseData}                           
+            >
+                <input 
+                    type='text' 
+                    name='name' 
+                    placeholder='name' 
+                    onChange={handleChange}
+                    value={dataForm.name}
+                />
+                <br />
+                <input 
+                    type='number' 
+                    name='phone'
+                    placeholder='tel' 
+                    onChange={handleChange}
+                    value={dataForm.phone}
+                />
+                <br/>
+                <input 
+                    type='email' 
+                    name='email'
+                    placeholder='email' 
+                    onChange={handleChange}
+                    value={dataForm.email}
+                />
+                <input 
+                    type='email' 
+                    name='validarEmail'
+                    placeholder='Repetir Email' 
+                    onChange={handleChange}
+                    //value={}
+                />
+                <br/>
+                <button>Generar Orden</button>
+            </form>
+
             <button onClick={emptyCart}>Vaciar carrito</button>
             </>
-        }     
-        
-        
+        }    
         </div>
     )
 }
 
 export default CartWidget
-//por que funcion global? no es lo mismo importarla de distintos componentes

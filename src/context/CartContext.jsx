@@ -64,13 +64,19 @@ const cantidad = () => {
         // return setCartList(itemWasDeleted)
 
     }
-
+    export function handleChange (event) {      
+        setDataForm({ 
+            ...dataForm,
+            [event.target.name]: event.target.value
+        })
+    }
     return <CartContext.Provider value={{
         cartList,
         agregarAlCarrito,
         emptyCart, 
         deleteOne,
         addTotal, 
+        handleChange,
         cantidad
     }}>
         { children }

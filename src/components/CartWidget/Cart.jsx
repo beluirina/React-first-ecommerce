@@ -12,9 +12,9 @@ import {
     getDocs 
 } from 'firebase/firestore'
 import { useState } from "react";
+import  CartWidget from "./CartWidget"
 
-
-const Cart = () => {
+export const Cart = () => {
 
     const [id, setId] = useState('')
     const [dataForm, setDataForm] = useState({
@@ -91,72 +91,9 @@ const Cart = () => {
     
  }
 
-    const handleChange = (event) => {      
-        setDataForm({ 
-            ...dataForm,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    console.log(dataForm);
-    return <div>
-            {id !== '' && `El id de la orden es : ${id} ` }
-            <br />
-            {cartList.length !== 0 ?<>
-                {cartList.map(produ => <div>
-                    <li>{produ.name} precio: {produ.price} cantidad: {produ.cantidad}</li>
-                    <button onClick={() => deleteOne(produ.item.id)}>x</button>
-                </div> ) }
-            {`la suma es ${addTotal()}`}
-            <br/>
-                
-                <form 
-                    onSubmit={createPurchaseData}                           
-                >
-                    <input 
-                        type='text' 
-                        name='name' 
-                        placeholder='name' 
-                        onChange={handleChange}
-                        value={dataForm.name}
-                    />
-                    <br />
-                    <input 
-                        type='number' 
-                        name='phone'
-                        placeholder='tel' 
-                        onChange={handleChange}
-                        value={dataForm.phone}
-                    />
-                    <br/>
-                    <input 
-                        type='email' 
-                        name='email'
-                        placeholder='email' 
-                        onChange={handleChange}
-                        value={dataForm.email}
-                    />
-                    <input 
-                        type='email' 
-                        name='validarEmail'
-                        placeholder='Repetir Email' 
-                        onChange={handleChange}
-                        //value={}
-                    />
-                    <br/>
-                    <button>Generar Orden</button>
-                </form>
-            </> 
-            :
-            <> 
-                <label>no hay producto vaya ya a comprar</label>
-                <br />
-                <button onClick={emptyCart} >Vaciar Carrito</button>
-            </> 
-        
-            }
-               
-        </div>;
+    return <>
+    <CartWidget/>
+    </>
     };
 
-export default Cart;
+
