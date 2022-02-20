@@ -1,6 +1,7 @@
 import { createContext, useState, useContext } from "react";
 
 const CartContext = createContext([])
+
 export function useCartContext(){ return useContext(CartContext)}
 
 export function CartContextProvider({ children }){
@@ -64,19 +65,13 @@ const cantidad = () => {
         // return setCartList(itemWasDeleted)
 
     }
-    export function handleChange (event) {      
-        setDataForm({ 
-            ...dataForm,
-            [event.target.name]: event.target.value
-        })
-    }
+
     return <CartContext.Provider value={{
         cartList,
         agregarAlCarrito,
         emptyCart, 
         deleteOne,
         addTotal, 
-        handleChange,
         cantidad
     }}>
         { children }

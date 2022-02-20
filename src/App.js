@@ -7,6 +7,7 @@ import CartWidget from './components/CartWidget/CartWidget';
 import ItemDetailContainer from './components/Container/ItemDetailContainer';
 import {CartContextProvider} from '../src/context/CartContext';
 
+
 function App() {
 
   return (
@@ -27,7 +28,6 @@ function App() {
             </Routes>
         </div>
       </CartContextProvider>
-
     </BrowserRouter>
     
   );
