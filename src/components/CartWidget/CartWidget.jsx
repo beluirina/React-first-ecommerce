@@ -15,7 +15,7 @@ import {
 
 export default function CartWidget (){
     const { cartList, emptyCart, addTotal, deleteOne } = useCartContext()
-
+ 
     const [id, setId] = useState('')
 
     const [dataForm, setDataForm] = useState({
@@ -33,20 +33,24 @@ export default function CartWidget (){
     }
 
     function checkValidationAndIsItEmpty(e){
-         const form = new FormData(e.target);
+         const form = new FormData(e.target.form);
+
+        //  let conditionValue = true
          //me suena repetitivo..
         const name = form.get("name");
         const phone = form.get("phone");
         const email = form.get("email");
         const emailVerf = form.get("emailVerf");
 
-
-        if (email !== emailVerf){
-            alert("porfavor ingresar mismo email")
-        }else if (phone === "" || name === ""){
-            alert("porfavor no dejar el campo de nombre y telefono vacios")
-
+        if (email !== emailVerf ){            
+            alert("porfavor ingresar el mismo email")
+            return
         }
+        if(phone === "" || name === "" || email === "" || emailVerf === "" ){
+            alert("porfavor llenar todos los campos")
+            return
+        }
+        // return conditionValue
     }
 
     
@@ -54,64 +58,64 @@ export default function CartWidget (){
             forumInput.preventDefault()  
                 // console.log( "console: " + JSON.stringify(forumInput))
 
-                
+            checkValidationAndIsItEmpty(forumInput)
+
             const db = getFirestore()
             const ordersCollection = collection (db, 'orders')
             const queryCollection = collection(db, 'productos')
-
             
-
-            checkValidationAndIsItEmpty(forumInput)
+            
+            
+            // Nuevo objeto    
+            let buyersInfo = {} 
+                    buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
+                    buyersInfo.total = addTotal();
+    
+            
+            
+                buyersInfo.items = cartList.map((cartItem)  => {
+                    const id = cartItem.id;
+                    const title = cartItem.title;
+                    const precio = cartItem.price * cartItem.cantidad;
+                    const cantidad = cartItem.cantidad
                     
-      // Nuevo objeto    
-      let buyersInfo = {} 
-
-            buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
-            buyersInfo.total = addTotal();
-    
-
-            //for each
-            await addDoc( ordersCollection, buyersInfo)
-            .then(resp => setId(resp.id))
-
-            buyersInfo.items = cartList.map((cartItem)  => {
-                const id = cartItem.item.id;
-                const nombre = cartItem.item.name;
-                const precio = cartItem.item.price * cartItem.cantidad;
-                const cantidad = cartItem.cantidad
+                    return {
+                        id, 
+                        title, 
+                        precio, 
+                        cantidad
+                    }   
+                }) 
                 
-                return {
-                    id, 
-                    nombre, 
-                    precio, 
-                    cantidad
-                }   
-            }) 
-            
-    
-            const queryUpdateStock = query(
-                queryCollection, 
-                where( documentId() , 'in', cartList.map(it => it.item.id) )          
-            ) 
-    
-            const batch = writeBatch(db)
-    
-            await getDocs(queryUpdateStock)
-            .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
-                    stock: res.data().stock - cartList.find(item => item.item.id === res.id).cantidad
-                 })
-             ))
-            .catch(err => console.log(err))
-            .finally(() => { 
-                    setDataForm({
-                        email: '',
-                        phone: '',
-                        name: ''
+                //firebase
+                await addDoc( ordersCollection, buyersInfo)
+                .then(resp => setId(resp.id))
+                
+        
+                const queryUpdateStock = query(
+                    queryCollection, 
+                    where( documentId() , 'in', cartList.map(it => it.id) )          
+                ) 
+        
+                const batch = writeBatch(db)
+        
+                await getDocs(queryUpdateStock)
+                .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
+                        stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad
                     })
-                    emptyCart()
-                })
+                ))
+                .catch(err => console.log(err))
+                .finally(() => { 
+                        setDataForm({
+                            email: '',
+                            phone: '',
+                            name: ''
+                        })
+                        emptyCart()
+                    })
 
-                batch.commit()
+                    batch.commit()
+            
             }
 
     return(
@@ -195,7 +199,7 @@ export default function CartWidget (){
                     value={dataForm.emailVerf}
                 />
                 <br/>
-                <button type="submit" >Generar Orden</button>
+                <button type="submit" onClick={checkValidationAndIsItEmpty} >Generar Orden</button>
 
             </form>
 

@@ -6,7 +6,7 @@ export function useCartContext(){ return useContext(CartContext)}
 
 export function CartContextProvider({ children }){
     const [cartList, setCartList] = useState([]);
-    
+
     console.log(cartList);
 
     // const  avoidDuplicates = (parametro) => {
@@ -68,6 +68,7 @@ const cantidad = () => {
     }
 
     return <CartContext.Provider value={{
+        setCartList,
         cartList,
         agregarAlCarrito,
         emptyCart, 
