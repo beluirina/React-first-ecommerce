@@ -21,7 +21,8 @@ export default function CartWidget (){
     const [dataForm, setDataForm] = useState({
         email: '',
         phone: '',
-        name: ''
+        name: '',
+        emailVerf: ''
     })
 
 
@@ -32,92 +33,89 @@ export default function CartWidget (){
         })
     }
 
-    function checkValidationAndIsItEmpty(e){
-         const form = new FormData(e.target.form);
+    const { name, emailVerf, email, phone} = dataForm;
 
-        //  let conditionValue = true
-         //me suena repetitivo..
-        const name = form.get("name");
-        const phone = form.get("phone");
-        const email = form.get("email");
-        const emailVerf = form.get("emailVerf");
-
-        if (email !== emailVerf ){            
-            alert("porfavor ingresar el mismo email")
-            return
-        }
+    function checkValidationAndIsItEmpty(){
+        
         if(phone === "" || name === "" || email === "" || emailVerf === "" ){
-            alert("porfavor llenar todos los campos")
-            return
+            alert("porfavor llenar todos los campos");
+            return false;
+        } else if (email !== emailVerf ){            
+            alert("porfavor ingresar el mismo email");
+            return false;
         }
-        // return conditionValue
+         return true;
     }
 
     
-        const createPurchaseData = async ( forumInput ) => {
-            forumInput.preventDefault()  
-                // console.log( "console: " + JSON.stringify(forumInput))
+    const createPurchaseData = async ( e ) => {
+        
+        e.preventDefault()  
+        
+        if (checkValidationAndIsItEmpty()) {
 
-            checkValidationAndIsItEmpty(forumInput)
+        const db = getFirestore()
+        const ordersCollection = collection (db, 'orders')
+        const queryCollection = collection(db, 'productos')
+        
+        
+        
+        // Nuevo objeto    
+        let buyersInfo = {} 
+                buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
+                buyersInfo.total = addTotal();
 
-            const db = getFirestore()
-            const ordersCollection = collection (db, 'orders')
-            const queryCollection = collection(db, 'productos')
+        
+        
+            buyersInfo.items = cartList.map((cartItem)  => {
+                const id = cartItem.id;
+                const title = cartItem.title;
+                const precio = cartItem.price * cartItem.cantidad;
+                const cantidad = cartItem.cantidad
+                
+                return {
+                    id, 
+                    title, 
+                    precio, 
+                    cantidad
+                }   
+            }) 
             
+            //firebase
+            await addDoc( ordersCollection, buyersInfo)
+            .then(resp => setId(resp.id))
             
-            
-            // Nuevo objeto    
-            let buyersInfo = {} 
-                    buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
-                    buyersInfo.total = addTotal();
     
-            
-            
-                buyersInfo.items = cartList.map((cartItem)  => {
-                    const id = cartItem.id;
-                    const title = cartItem.title;
-                    const precio = cartItem.price * cartItem.cantidad;
-                    const cantidad = cartItem.cantidad
-                    
-                    return {
-                        id, 
-                        title, 
-                        precio, 
-                        cantidad
-                    }   
-                }) 
-                
-                //firebase
-                await addDoc( ordersCollection, buyersInfo)
-                .then(resp => setId(resp.id))
-                
-        
-                const queryUpdateStock = query(
-                    queryCollection, 
-                    where( documentId() , 'in', cartList.map(it => it.id) )          
-                ) 
-        
-                const batch = writeBatch(db)
-        
-                await getDocs(queryUpdateStock)
-                .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
-                        stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad
+            const queryUpdateStock = query(
+                queryCollection, 
+                where( documentId() , 'in', cartList.map(it => it.id) )          
+            ) 
+    
+            const batch = writeBatch(db)
+    
+            await getDocs(queryUpdateStock)
+            .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
+                    stock: res.data().stock - cartList.find(item => item.id === res.id).cantidad
+                })
+            ))
+            .catch(err => console.log(err))
+            .finally(() => { 
+                    setDataForm({
+                        email: '',
+                        phone: '',
+                        name: '',
+                        emailVerf: ''
                     })
-                ))
-                .catch(err => console.log(err))
-                .finally(() => { 
-                        setDataForm({
-                            email: '',
-                            phone: '',
-                            name: ''
-                        })
-                        emptyCart()
-                    })
+                    emptyCart()
+                })
 
-                    batch.commit()
-            
-            }
+                batch.commit()
 
+        } else {
+            return
+        }         
+        
+    }
     return(
         <div>
             <h1>Cart</h1>
@@ -195,11 +193,11 @@ export default function CartWidget (){
                     type='email' 
                     name='emailVerf'
                     placeholder='Repetir Email' 
-                    // onChange={createPurchaseData}
+                    onChange={handleChange}
                     value={dataForm.emailVerf}
                 />
                 <br/>
-                <button type="submit" onClick={checkValidationAndIsItEmpty} >Generar Orden</button>
+                <button type="submit" onClick={createPurchaseData} >Generar Orden</button>
 
             </form>
 
