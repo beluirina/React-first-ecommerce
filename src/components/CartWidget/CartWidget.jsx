@@ -16,46 +16,65 @@ import {
 export default function CartWidget (){
     const { cartList, emptyCart, addTotal, deleteOne } = useCartContext()
 
-    // function addPricePerItem(){
-    //     const addTotalItems = [...cartList]
-    //     addTotalItems.forEach(x =>{
-    //           return x.price * x.cantidad 
-    //        })
-    // }
-    function checkValidation(input){
-        let info = input.target.value
-        const email = dataForm.email.value
+    const [id, setId] = useState('')
 
-        if (info !== email){
-            return "porfavor ingresar mismo email"
-        }else{
-            createPurchaseData()
-        }
-    }
-       function handleChange (event) {      
+    const [dataForm, setDataForm] = useState({
+        email: '',
+        phone: '',
+        name: ''
+    })
+
+
+    function handleChange (event) {      
         setDataForm({ 
             ...dataForm,
             [event.target.name]: event.target.value
         })
     }
+
+    function checkValidationAndIsItEmpty(e){
+         const form = new FormData(e.target);
+         //me suena repetitivo..
+        const name = form.get("name");
+        const phone = form.get("phone");
+        const email = form.get("email");
+        const emailVerf = form.get("emailVerf");
+
+
+        if (email !== emailVerf){
+            alert("porfavor ingresar mismo email")
+        }else if (phone === "" || name === ""){
+            alert("porfavor no dejar el campo de nombre y telefono vacios")
+
+        }
+    }
+
     
-        const [id, setId] = useState('')
-        const [dataForm, setDataForm] = useState({
-            email: '',
-            phone: '',
-            name: ''
-        })
-    
-        const createPurchaseData = async (e) => {
-            e.preventDefault()  
-    
-             // Nuevo objeto    
-            let buyersInfo = {}          
-    
+        const createPurchaseData = async ( forumInput ) => {
+            forumInput.preventDefault()  
+                // console.log( "console: " + JSON.stringify(forumInput))
+
+                
+            const db = getFirestore()
+            const ordersCollection = collection (db, 'orders')
+            const queryCollection = collection(db, 'productos')
+
+            
+
+            checkValidationAndIsItEmpty(forumInput)
+                    
+      // Nuevo objeto    
+      let buyersInfo = {} 
+
             buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
             buyersInfo.total = addTotal();
     
-            buyersInfo.items = cartList.map(cartItem => {
+
+            //for each
+            await addDoc( ordersCollection, buyersInfo)
+            .then(resp => setId(resp.id))
+
+            buyersInfo.items = cartList.map((cartItem)  => {
                 const id = cartItem.item.id;
                 const nombre = cartItem.item.name;
                 const precio = cartItem.item.price * cartItem.cantidad;
@@ -69,26 +88,6 @@ export default function CartWidget (){
                 }   
             }) 
             
-            const db = getFirestore()
-            const ordersCollection = collection (db, 'orders')
-            //for each
-            await addDoc( ordersCollection, buyersInfo)
-    
-            .then(resp => setId(resp.id))
-    //if not the same dont run - if same run
-
-
-            // actualizando un documento      
-        //     const queryDoc = doc(db, 'items', 'KASilNli63XCkyJByarM' )
-        //     updateDoc(queryDoc, { 
-        //         stock: 90
-        //     })
-        //     .then(resp => console.log(resp))
-    
-        // actualizar stock, no es obligatoria, solo el que quiera. 
-    
-            const queryCollection = collection(db, 'productos')
-            
     
             const queryUpdateStock = query(
                 queryCollection, 
@@ -100,8 +99,8 @@ export default function CartWidget (){
             await getDocs(queryUpdateStock)
             .then(resp => resp.docs.forEach(res => batch.update(res.ref, {
                     stock: res.data().stock - cartList.find(item => item.item.id === res.id).cantidad
-                })
-            ))
+                 })
+             ))
             .catch(err => console.log(err))
             .finally(() => { 
                     setDataForm({
@@ -110,18 +109,14 @@ export default function CartWidget (){
                         name: ''
                     })
                     emptyCart()
-                })    
-        batch.commit()
+                })
+
+                batch.commit()
             }
 
     return(
-
-        //si tu carrito esta vacio - boton continuar comprando
-        //else - display products. 
         <div>
             <h1>Cart</h1>
-            <forum/>
-
             
         {
             (cartList.length === 0)
@@ -167,7 +162,7 @@ export default function CartWidget (){
 
 
             <form 
-                onSubmit={checkValidation}                           
+                onSubmit={createPurchaseData}                           
             >
                 <input 
                     type='text' 
@@ -194,13 +189,14 @@ export default function CartWidget (){
                 />
                 <input 
                     type='email' 
-                    name='validarEmail'
+                    name='emailVerf'
                     placeholder='Repetir Email' 
-                    onChange={checkValidation}
-                    // value={}
+                    // onChange={createPurchaseData}
+                    value={dataForm.emailVerf}
                 />
                 <br/>
-                <button>Generar Orden</button>
+                <button type="submit" >Generar Orden</button>
+
             </form>
 
             <button onClick={emptyCart}>Vaciar carrito</button>

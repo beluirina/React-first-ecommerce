@@ -22,12 +22,12 @@ return(
         </Link> */}
       </li>
       <li>
-        <NavLink to='/category/Bodys' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link disabled'} >
+        <NavLink to='/category/Bodys' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link notActive'} >
           Bodys
         </NavLink> 
       </li>
       <li>
-        <NavLink to='/category/Lenceria' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link disabled'} >
+        <NavLink to='/category/Lenceria' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link notActive'} >
           Lenceria
         </NavLink>
       </li>

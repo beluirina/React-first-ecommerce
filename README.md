@@ -17,3 +17,10 @@
 
 ### Routes test
 ![gif-routes-test](https://github.com/beluirina/learning-react-proyecto/blob/main/routes-test.gif)
+
+
+3) createPurchaseData:
+No esta recibiendo el evento (e), llega undefined.
+
+5) buyersInfo.items:
+chequealo porque seguramente no debe recibir informacion en las const que estas creando y entonces no se genera esta clave dentro de buyersInfo.
