@@ -16,10 +16,6 @@ return(
   <div className="collapse navbar-collapse" id="navbarNav">
     <ul className="navbar-nav">
       <li className="nav-item">
-        {/*hacer div drop down con categorias*/}
-        {/* <Link to='/productos' className="nav-link" href="#">
-          Productos
-        </Link> */}
       </li>
       <li>
         <NavLink to='/category/Bodys' className={({isActive}) => isActive ? 'nav-link active' : 'nav-link notActive'} >

@@ -5,11 +5,9 @@ import { useCartContext } from "../../context/CartContext"
 
 
 function ItemDetail ({ loading, prod }){
-    //vista de detalle expandida del producto con titulo imagen descrip precio
     const { agregarAlCarrito} = useCartContext()
     
     const [contador, setContador] = useState(0)
-    // console.log(cartList)
 
     function onAdd(cant){
         agregarAlCarrito( {...prod, cantidad: cant} )

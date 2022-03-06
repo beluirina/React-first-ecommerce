@@ -7,7 +7,7 @@ import itemList from "./itemList";
             res(itemList)
         }, 2000);
     } else {
-        rej( /* Manejo de Error */ );
+        rej( Error );
     }        
 })
 export default getItems

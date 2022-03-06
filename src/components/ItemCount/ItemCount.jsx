@@ -1,4 +1,4 @@
-import { useState } from 'react' // useState
+import { useState } from 'react' 
 
 function ItemCount ( { stock, initial, onAdd } ) {
     //para que no se reinicie el valor inicial ya que re ejecuta toda la function ItemCount

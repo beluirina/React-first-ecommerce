@@ -5,7 +5,6 @@ import { getFirestore, getDocs, collection, query, where} from 'firebase/firesto
 
 function ItemListContainer( ){
   const [productos, setProductos] = useState([])
-  //const [product, setProduct] = useState([])
   const [loading, setloading] = useState(true)
 
   const {idCategory} = useParams()
@@ -21,30 +20,16 @@ function ItemListContainer( ){
                 where('category', '==', idCategory)                
             )  
 
-
-      //where con stock
-    //, where('price', '>=', '1000')
       getDocs(queryF)
       .then(resp => setProductos( resp.docs.map(prod => ({ id: prod.id, ...prod.data()}) )))
       .catch((err) => console.error(`error: ${err}`))
       .finally(()=> setloading(false))
-
-      // getItems
-      // .then((res) => setProductos(idCategory ? res.filter(prod => prod.category === idCategory ) : res ))
-      // .catch((err) => console.error(`error: ${err}`))
-      // .finally(()=> setloading(false))
 
   }, [idCategory])
   
   return( //card display items
     <div className='display'>
       <h2>Productos</h2>
-      <select className='filters'>
-        <option>Ordenar por</option>
-        <option value='mayorAMenor'onClick={getDocs}>Ordenar por precio (de mayor a menor)</option>
-        <option value='menorAMayor'>Ordenar por precio (de menor a mayor)</option>
-        <option value=''></option>
-      </select>
       <div className='cardContainer'>
       {productos.map((productos) => <Item prod={productos} key={productos.id} loading={loading}/>)}
       </div>
@@ -54,18 +39,3 @@ function ItemListContainer( ){
 }
 
 export default ItemListContainer;
-
-
-/*===== ORDERBY ====  */
-/*PRECIO ASCENDING
-.collection("productos")
-.orderBy("price", "asc")
-
-PRECIO DESCENDING
-.collection("productos")
-.orderBy("price", "desc")
-
-CATEGORIA
-
-
-*/

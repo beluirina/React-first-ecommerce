@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-//{ buyer: {name, phone, email} items: [{id, title, price}], total}
 import { useState } from "react";
 import {useCartContext} from "../../context/CartContext"
 import { 
@@ -62,7 +61,7 @@ export default function CartWidget (){
         
         // Nuevo objeto    
         let buyersInfo = {} 
-                buyersInfo.buyer =  dataForm //{name:'Federico',email: 'f@gmail.com', phone: '1234567890'}
+                buyersInfo.buyer =  dataForm 
                 buyersInfo.total = addTotal();
 
         
@@ -145,7 +144,6 @@ export default function CartWidget (){
                     <h2 >{el.title} x ({el.cantidad})</h2>
                     <p>{el.id}</p>
                     <h4>${el.price}c/u</h4>
-                    {/* <p>${addPricePerItem()}</p> */}
                     <button onClick={() => deleteOne(el.id)}> X </button>
                 </div>
             ))
